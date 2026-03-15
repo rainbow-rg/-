@@ -9,7 +9,7 @@ document.querySelector("button").addEventListener("click", () => {
 
     if (pass !== pass2) {
         alert("パスワードが一致しません");
-        return;
+    return;
     }
 
     fetch(GAS_URL, {
@@ -19,15 +19,18 @@ document.querySelector("button").addEventListener("click", () => {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            mode: "register",
+            mode: "register", // または login
             name,
             mail,
             id,
             pass
         })
     });
-
-    // ★ no-cors ではレスポンスが読めないので、ここで完了扱いにする
-    alert("登録処理を送信しました");
+    .then(res => res.json())
+    .then(data => {
+        if (data.result === "success") {
+        alert("登録完了！");
     location.href = "index.html";
+        }
+    });
 });
