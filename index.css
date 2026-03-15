@@ -1,0 +1,16 @@
+﻿body {
+    font-size: 20px;
+}
+.kettei{
+    width:120px;
+    height:60px;
+    font-size:25px;
+    position:relative;
+    left:100px;
+    top:20px;
+}
+.touroku{
+    position:relative;
+    left:100px;
+    top:20px;
+}
