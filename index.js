@@ -1,16 +1,25 @@
-const GAS_URL = "https://script.google.com/macros/s/AKfycbzgarhlhlI-WMu1qQUkCsur5p1ZalF1wglNQIe1038osVIB3JKhG1qUsEJ1pWl4mywB/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbyHcCo--AlroLq1LFv_hPeDkkfGF6Nkw3BZgbDDULrYqR9dBnEVYYyS4cjOKBrn1t5wRg/exec";
 
-function login() {
-    const id = document.getElementById("id").value;
+document.querySelector(".kettei").addEventListener("click", () => {
+    const userID = document.getElementById("roguinID").value;
     const pass = document.getElementById("pass").value;
 
-    google.script.run
-        .withSuccessHandler(function (res) {
-            if (res.result === "success") {
-                window.location = "home.html";
-            } else {
-                alert("ID またはパスワードが違います");
-            }
+    fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify({
+            mode: "login",
+            userID: userID,
+            pass: pass
         })
-        .doPost({ postData: { contents: JSON.stringify({ mode: "login", id, pass }) } });
-}
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.result === "success") {
+                alert("ログイン成功！");
+                // ここで遷移先を指定
+                // location.href = "home.html";
+            } else {
+                alert("IDまたはパスワードが違います");
+            }
+        });
+});
